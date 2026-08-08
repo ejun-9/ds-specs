@@ -55,21 +55,44 @@ color: var(--color-text);                  /* components — alias only */
 
 ## Install
 
-**Claude Code / Cowork**
+Two ways to install, depending on what you're using Claude in. Pick one.
 
-```bash
-git clone https://github.com/ejun-9/ds-specs.git /tmp/ds-specs-repo
-cp -r /tmp/ds-specs-repo/ds-specs ~/.claude/skills/
+### Option A — claude.ai (no terminal needed)
+
+1. Go to the [latest release](../../releases/latest) on this repo.
+2. Under **Assets**, download `ds-specs.skill`.
+3. In claude.ai, go to **Settings → Capabilities → Skills**.
+4. Click **Upload skill** and select the file you just downloaded.
+5. That's it — Claude will now pull in `ds-specs` automatically when a conversation matches (or you can name it explicitly, see [Using it](#using-it) below).
+
+To update later: repeat the same steps with the newest release — the upload replaces the old version.
+
+### Option B — Claude Code / Cowork (terminal)
+
+Requires `git` installed (macOS/Linux already have it; check with `git --version`).
+
+1. Open a terminal.
+2. Clone the repo and copy the skill folder into Claude's skills directory:
+
+   ```bash
+   git clone https://github.com/ejun-9/ds-specs.git /tmp/ds-specs-repo
+   cp -r /tmp/ds-specs-repo/ds-specs ~/.claude/skills/
+   ```
+3. Restart Claude Code (or start a new session) so it picks up the new skill.
+
+**Verify it worked** — in a Claude Code session, type:
+
+```
+use ds-specs to set up a design system for this project
 ```
 
-**claude.ai**
+If Claude references the spec tree, tokens, or the three modes below, the skill is installed correctly.
 
-Download [`ds-specs.skill`](../../releases/latest) from Releases and upload it in Settings → Capabilities → Skills.
-
-**Keep it current** — add to your Claude settings or project instructions:
+**Keep it current** — re-run this whenever you want the latest version (skills don't auto-update):
 
 ```bash
 git clone --depth=1 https://github.com/ejun-9/ds-specs.git /tmp/ds-specs-latest \
+  && rm -rf ~/.claude/skills/ds-specs \
   && cp -r /tmp/ds-specs-latest/ds-specs ~/.claude/skills/
 ```
 
