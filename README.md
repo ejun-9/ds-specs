@@ -58,7 +58,7 @@ color: var(--color-text);                  /* components — alias only */
 **Claude Code / Cowork**
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/ds-specs.git /tmp/ds-specs-repo
+git clone https://github.com/ejun-9/ds-specs.git /tmp/ds-specs-repo
 cp -r /tmp/ds-specs-repo/ds-specs ~/.claude/skills/
 ```
 
@@ -69,7 +69,7 @@ Download [`ds-specs.skill`](../../releases/latest) from Releases and upload it i
 **Keep it current** — add to your Claude settings or project instructions:
 
 ```bash
-git clone --depth=1 https://github.com/YOUR-USERNAME/ds-specs.git /tmp/ds-specs-latest \
+git clone --depth=1 https://github.com/ejun-9/ds-specs.git /tmp/ds-specs-latest \
   && cp -r /tmp/ds-specs-latest/ds-specs ~/.claude/skills/
 ```
 
