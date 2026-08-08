@@ -6,7 +6,10 @@ An LLM makes 200–300 visual micro-decisions per coding session. Each one is in
 
 `ds-specs` turns every visual decision into a lookup instead of a guess.
 
-Built on [Hardik Pandya's method for LLM-readable design systems](https://hvpandya.com/llm-design-systems), extended with a two-way Figma bridge and deployment enforcement.
+Built on [Hardik Pandya's method for LLM-readable design systems](https://hvpandya.com/llm-design-systems) — extended with a two-way Figma bridge and deployment enforcement.
+
+> **Source article:** https://hvpandya.com/llm-design-systems
+> **Built with:** Claude Opus 5 (high reasoning effort)
 
 ---
 
@@ -127,7 +130,13 @@ ds-specs/
 
 ## Credit
 
-The core method — three-tier specs, closed token sets, the audit script, and the framing of LLM failure modes — is [Hardik Pandya's](https://hvpandya.com/llm-design-systems). This packages it as a Claude skill and adds the Figma bridge and the enforcement gates.
+The core method — three-tier specs, closed token sets, the audit script, and the framing of LLM failure modes — comes from Hardik Pandya's article:
+
+**https://hvpandya.com/llm-design-systems**
+
+Read it first. It explains the reasoning this skill only encodes. What's added here is the two-way Figma bridge, the five enforcement gates, stack detection for Tailwind, and near-miss classification in the audit.
+
+This skill was authored with **Claude Opus 5** (high reasoning effort).
 
 ## License
 

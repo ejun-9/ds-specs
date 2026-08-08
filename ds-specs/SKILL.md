@@ -5,7 +5,8 @@ description: Build and maintain an LLM-readable design system that is also a two
 
 # LLM-readable design systems
 
-Based on Hardik Pandya's method (hvpandya.com/llm-design-systems).
+Based on Hardik Pandya's method: https://hvpandya.com/llm-design-systems
+Skill authored with Claude Opus 5 (high reasoning effort).
 
 ## The problem this solves
 

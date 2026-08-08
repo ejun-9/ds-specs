@@ -2,7 +2,8 @@
 
 ## 0.1.0
 
-Initial release.
+Initial release. Authored with Claude Opus 5 (high reasoning effort), based on
+Hardik Pandya's method: https://hvpandya.com/llm-design-systems
 
 - Three-tier spec tree: foundations/tokens, components, patterns
 - Three-layer token indirection for plain CSS and Tailwind
