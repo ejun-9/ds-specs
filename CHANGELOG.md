@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Shorten the SKILL.md description to 1,000 characters so claude.ai accepts the
+  upload (its limit is 1,024). Every trigger phrase is kept.
+
 ## 0.1.0
 
 Initial release. Authored with Claude Opus 5 (high reasoning effort), based on
