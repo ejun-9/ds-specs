@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.0
+
+- Detects Storybook (a `.storybook/` folder or `@storybook/*` in `package.json`).
+  On Storybook projects, component specs use a short template: no Props or Code
+  example sections, since the stories hold both, and a `storybook:` ID in the
+  frontmatter and metadata.
+- New `references/spec-sync.md`: a script that writes each spec's Overview into
+  the component's doc comment, which Storybook's MCP returns with the code. With
+  `--check` it fails on a missing story, a wrong story ID or an outdated comment.
+  Runs at pre-commit and in CI.
+- Projects without Storybook keep the full 8-section template.
+
 ## 0.1.1
 
 - Shorten the SKILL.md description to 1,000 characters so claude.ai accepts the

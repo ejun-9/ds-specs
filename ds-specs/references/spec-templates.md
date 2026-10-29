@@ -47,6 +47,8 @@ Foundations must never name a specific component. `spacing.md` describing "the b
 
 Two parts: a machine-readable `figma:` frontmatter block that generates and diffs against the Figma component set, then the 8-section prose body that Claude reads at session start and that becomes the Figma documentation page.
 
+**Two body templates.** Projects with Storybook use the short template (end of this section): props, variants and working code already live in the stories, so the spec skips them. Projects without Storybook use the full 8-section template, because the spec is the only place an agent can find props and examples.
+
 **Declare states once, in `variantAxes`.** Section 6 describes what each state *looks like* and *means*; the axis list is the single source. If the two disagree, the reconcile report flags it — but don't let it get there.
 
 ````markdown
@@ -55,6 +57,7 @@ component: Button
 category: atom
 status: stable
 source: src/components/Button.tsx
+storybook: atoms-button     # Storybook projects only: the story's ID
 figma:
   page: "Components / Button"
   variantAxes:
@@ -150,6 +153,39 @@ Real, copyable, from this project. Not pseudocode.
 ```
 
 Section 2's "when NOT to use" and section 6's full state coverage are the two most-skipped and most-valuable parts. Source code shows what exists; these describe how to choose.
+
+### Short template (Storybook projects)
+
+Same frontmatter, including `storybook:`. Six sections, none of them a copy of the code:
+
+```markdown
+# <Component name>
+
+## 1. Metadata
+- **Name:** Button
+- **Category:** Atom
+- **Status:** Stable | Beta | Deprecated
+- **Source:** `src/components/Button.tsx`
+- **Storybook:** `atoms-button` (props, variants and story code, read over Storybook's MCP)
+
+## 2. Overview
+**What it is.** One or two sentences.
+
+**When to use.**
+- Primary action on a page or in a dialog
+
+**When NOT to use.**
+- Navigation between pages: use Link
+
+## 3. Anatomy
+## 4. Tokens used
+## 5. States
+## 6. Cross-references
+```
+
+Sections 3 to 6 follow the full template. Leave out Props / API and Code example: Storybook builds both from the source, so a hand-written copy can only drift. Keep anything a story can't show, like "all native `<input>` props pass through" or a rule for picking between variants, in Overview or States.
+
+After editing a short spec, run the spec sync from `references/spec-sync.md`. It copies the Overview into the component's doc comment, so an agent gets the "when NOT to use" in the same MCP answer as the code.
 
 ---
 
