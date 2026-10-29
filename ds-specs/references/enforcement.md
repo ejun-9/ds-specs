@@ -12,6 +12,8 @@ Five gates, escalating. Autofix is allowed at gates 1–3 and **forbidden** at g
 | 4. CI / PR | Push, pull request | Fails the check, blocks merge | **never** |
 | 5. Deploy | Release pipeline | Fails the build, blocks deploy | **never** |
 
+On Storybook projects, gates 3 and 4 also run the spec drift check (`references/spec-sync.md`). Its write mode is local only, same as `--fix`: CI runs `--check` and never rewrites a doc comment.
+
 ## Why autofix stops at gate 3
 
 The token mapping is inference, not fact.

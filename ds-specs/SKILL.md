@@ -51,6 +51,10 @@ Before doing anything, determine two axes. Do not ask the user if the codebase a
 - Meaningful existing styles → **retrofit**: run all seven steps in order, starting with the audit
 - Little or no existing code → **greenfield**: skip Step 1, derive tokens from stated taste or an existing reference (a Figma file, a screenshot, a named design system), and write specs *ahead of* the components
 
+**Axis 3: Storybook.** Check for a `.storybook/` folder or `@storybook/*` in `package.json`.
+- Storybook detected → component specs use the **short template**: no Props or Code example sections, since stories already hold both. Add the spec sync from `references/spec-sync.md`. If the project doesn't run Storybook's MCP addon (`@storybook/addon-mcp`), suggest it, because that's how an agent reads props and story code.
+- No Storybook → the full 8-section template
+
 State which branch you're taking in one line, then proceed. Don't narrate the detection at length.
 
 ## Step 0.5: Scale the scope
@@ -140,7 +144,7 @@ Full patterns and the Tailwind equivalent: `references/tokens-css.md` and `refer
 
 ### Step 3 — Spec files
 
-Write the tree from Step 0.5. Every component spec follows the same 8-section template:
+Write the tree from Step 0.5. Without Storybook, every component spec follows the same 8-section template:
 
 1. Metadata (name, category, status)
 2. Overview — **when to use and when *not* to use**
@@ -150,6 +154,8 @@ Write the tree from Step 0.5. Every component spec follows the same 8-section te
 6. States — default, hover, active, focus, disabled, error
 7. Code example
 8. Cross-references — "Uses" and "Used by"
+
+With Storybook (Axis 3), use the short template: drop sections 5 and 7 and add the story's ID to the metadata. Storybook builds props and code from the source, so a copy in the spec only drifts.
 
 Section 2 is the one that matters most and the one most likely to be written lazily. Source code already shows what was built; specs exist to say how to build the next thing. "When not to use" is knowledge that lives only in a designer's head until someone writes it down.
 
@@ -198,7 +204,7 @@ Run the audit at the end and confirm zero errors. Report the before/after count.
 
 Read `references/enforcement.md` and generate all of it. This step is not optional and not "wire up CI later" — an audit nobody runs is documentation.
 
-Produce: the `--fix` flag, a pre-commit hook, a CI workflow set as a required status check, a deploy gate with a break-glass override that files an issue, and **`specs/foundations/enforcement.md`** — the spec file explaining why the gates exist and how to clear a failure.
+Produce: the `--fix` flag, a pre-commit hook (plus the spec drift check from `references/spec-sync.md` on Storybook projects), a CI workflow set as a required status check, a deploy gate with a break-glass override that files an issue, and **`specs/foundations/enforcement.md`** — the spec file explaining why the gates exist and how to clear a failure.
 
 Generate the spec file, not just the config. Config says what runs; the spec says why, and it's what a new contributor or a fresh LLM session actually reads.
 
@@ -209,6 +215,10 @@ On an existing codebase with many violations, ratchet from a baseline count inst
 Add to `CLAUDE.md` (or `.cursorrules`, or whatever the project uses):
 
 > Before writing or modifying any UI code, read the relevant spec file in `specs/`. Use only tokens from `tokens.css`. Run `scripts/token-audit.js` before committing. Zero errors required.
+
+On Storybook projects, add:
+
+> Read a component's props and story code from Storybook's MCP, not the spec. After editing a component spec, run `npm run specs:sync`.
 
 For large projects, pin upstream design system package versions and add a sync routine that flags which spec files may need updating when the library ships changes. **Non-blocking** — it reports, it never auto-edits specs.
 
@@ -227,6 +237,7 @@ For large projects, pin upstream design system package versions and add a sync r
 - Don't soften the audit script to make it pass
 - Don't autofix in CI or at deploy — exact matches only, locally, with a human reading the diff
 - Don't ship an audit without gates, or gates without `specs/foundations/enforcement.md`
+- Don't copy props or code examples into a spec when Storybook already shows them
 - Don't skip the "when not to use" section — it's the part source code can't provide
 - Don't produce the full 64-file tree for a 6-component prototype
 - Don't let reconcile auto-resolve a mismatch, in either direction
@@ -238,6 +249,7 @@ For large projects, pin upstream design system package versions and add a sync r
 - `references/tokens-css.md` — three-layer indirection in plain CSS, theming, fallback strategy
 - `references/tokens-tailwind.md` — the Tailwind path: `@theme`, config tokens, what "hardcoded" means with utilities
 - `references/spec-templates.md` — fill-in templates for foundation, component, and pattern specs
+- `references/spec-sync.md`: Storybook projects only. Writes each spec's Overview into the component's doc comment and fails on spec, story or comment drift
 - `references/audit-scripts.md` — working audit script implementations for both stacks
 - `references/enforcement.md` — the five gates, autofix boundaries, CI and deploy config, ratcheted rollout
 - `references/figma-bridge.md` — the two-way bridge: codeSyntax join key, spec↔Figma mapping table, push plan, reconcile report format

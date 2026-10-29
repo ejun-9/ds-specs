@@ -31,6 +31,9 @@ Use it if you are building with an AI coding agent and any of these sound famili
 
 Works greenfield or retrofit, Tailwind or plain CSS — it detects which and branches.
 
+Storybook is optional. Without it, ds-specs writes full specs with props and code examples.
+With it, specs get shorter and stay in sync with your stories.
+
 ---
 
 ## What it does
@@ -42,7 +45,7 @@ specs/
 ├── foundations/   color, typography, spacing, radius, elevation, motion…
 ├── tokens/        the master variable map
 ├── atoms/         ─┐
-├── molecules/      ├─ components, 8-section template each
+├── molecules/      ├─ components, 8 sections each (6 with Storybook)
 ├── organisms/     ─┘
 └── patterns/      layout and composition rules
 ```
@@ -62,6 +65,12 @@ diff. CI and deploy block and never rewrite your code.
 **A two-way Figma bridge.** Figma variables carry a `codeSyntax` field. Set it to the CSS
 custom property and the Figma variable and your token become one record seen from two sides
 — so sync is exact instead of fuzzy name-matching.
+
+**Storybook-aware.** If the project has Storybook, component specs drop their Props and Code
+example sections, because the stories already hold both and a copy only drifts. A small
+script writes each spec's "when to use" and "when NOT to use" into the component's doc
+comment, so Storybook's MCP hands an agent the rules and the code in one answer. The same
+script fails the commit when a spec, its story and its comment disagree.
 
 ### The three failure modes it targets
 
@@ -178,6 +187,11 @@ haven't built.
 start from a recorded baseline and fail only when the count *increases*. Turning on hard-fail
 against 400 violations gets the gate deleted by Thursday.
 
+**Specs hold judgment, Storybook holds code.** Props tables and code examples written by hand
+go stale the first time someone renames a prop. When Storybook can generate them from the
+source, the spec keeps only what a story can't show: when to use a component, which tokens and
+why, and what not to do.
+
 **Break-glass leaves a paper trail.** Deploy can be forced, but it logs every violation,
 notifies the team, and opens an issue in the name of whoever triggered it.
 
@@ -194,6 +208,7 @@ ds-specs/
     ├── spec-templates.md           templates for all three tiers
     ├── audit-scripts.md            working audit implementations, near-miss detection
     ├── enforcement.md              five gates, CI and deploy config, ratcheted rollout
+    ├── spec-sync.md                Storybook projects: spec to doc comment, drift check
     └── figma-bridge.md             codeSyntax join key, mapping table, reconcile report
 ```
 
@@ -207,8 +222,8 @@ LLM failure modes — comes from Hardik Pandya:
 **https://hvpandya.com/llm-design-systems**
 
 Read it first. It explains the reasoning this skill only encodes. What's added here is the
-two-way Figma bridge, the five enforcement gates, stack detection for Tailwind, and near-miss
-classification in the audit.
+two-way Figma bridge, the five enforcement gates, stack detection for Tailwind, near-miss
+classification in the audit, and the short spec template and spec sync for Storybook projects.
 
 ## Related
 
