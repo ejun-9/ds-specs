@@ -31,6 +31,9 @@ Use it if you are building with an AI coding agent and any of these sound famili
 
 Works greenfield or retrofit, Tailwind or plain CSS — it detects which and branches.
 
+Storybook is optional. Without it, ds-specs writes full specs with props and code examples.
+With it, specs get shorter and stay in sync with your stories.
+
 ---
 
 ## What it does
